@@ -2,60 +2,66 @@ package MyCalculator.MyCalculator;
 
 public class Calculate {
 
+	/**
+	 * @param input1
+	 * @param input2
+	 * @return sum
+	 */
 	public double add(double input1, double input2) {
 		double result = input1 + input2;
 		return result;
 	}
 
+	/**
+	 * @param input1
+	 * @param input2
+	 * @return difference
+	 */
 	public double sub(double input1, double input2) {
 		double result = input1 - input2;
 		return result;
 	}
 
+	/**
+	 * @param input1
+	 * @param input2
+	 * @return product
+	 */
 	public double multiply(double input1, double input2) {
 		double result = input1 * input2;
 		return result;
 	}
 
-	public double divide(double input1, double input2) {
-		if (input2==0){		
-		System.out.println("Please change the divider, cannot divide by zero");
+	/**
+	 * @param dividend
+	 * @param divisor
+	 * @return quotient
+	 * @throws Exception
+	 */
+	public double divide(double dividend, double divisor) {
+		double result1 = 0;
+		try {
+			double result = dividend / divisor;
+			return result;
+			}
+			// System.out.println("Please change the divider, cannot divide by zero");
+		 catch (Exception e) {
+			System.out.println(e);
 		}
-		double result = input1 / input2;
-		return result;
-		}
+		return result1;
+		
+		
 
-	public double percentage(double input1, double input2) {
-		double result = (input1 * 100) / input2;
-		return result;
 	}
 
-	public double calculateWithInput(double value1, double value2,
-			char operator1) {
-
-		double output = 0;
-
-		switch (operator1) {
-		case '+':
-			output = this.add(value1, value2);
-			break;
-		case '-':
-			output = this.sub(value1, value2);
-			break;
-		case '*':
-			output = this.multiply(value1, value2);
-			break;
-		case '/':
-			output = this.divide(value1, value2);
-			break;
-		case '%':
-			output = this.percentage(value1, value2);
-			break;
-		default:
-			System.out.println("Please enter the correct operator");
-			break;
-		}
-		return output;
+	/**
+	 * @param obtainedvalue
+	 * @param totalvalue
+	 * @return percentage
+	 */
+	public double percentage(double obtainedvalue, double totalvalue) {
+		double result = (obtainedvalue * 100) / totalvalue;
+		return result;
 	}
 
 }

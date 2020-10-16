@@ -6,47 +6,54 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class CalculatorMain {
 	public static void main(String[] args) {
-		String line = "";
 
-		try {
-			//BufferedReader br = new BufferedReader(new FileReader("F:\\Inputs.csv"));
-			BufferedReader br = new BufferedReader(new FileReader("Inputs.csv"));
-			//BufferedWriter bw = new BufferedWriter(new FileWriter("F:\\Inputsout.csv"));
-			BufferedWriter bw = new BufferedWriter(new FileWriter("Inputsout.csv"));
-			String heading = "input1,operator,input2,result";
-			bw.append(heading);
+		ReadFile rf = new ReadFile();
+		 WriteFile wf = new WriteFile();
+		List<InputReturnValues> inputslist = rf.readinputfile();	
 
-			while ((line = br.readLine()) != null) {
-				String[] calcin = line.split(",");// use comma as separator
-				double input1 = Double.parseDouble(calcin[0]);
-				char operator = calcin[1].charAt(0);
-				double input2 = Double.parseDouble(calcin[2]);
+		for (InputReturnValues inpValues : inputslist) {
 
-				System.out.println("Input1 =" + calcin[0] + ",Operator="
-						+ calcin[1] + ", Input2=" + calcin[2] + "]");
-
-				Calculate calculate = new Calculate();
-				double output = calculate.calculateWithInput(input1, input2,
-						operator);
-
-				String calcin3 = Double.toString(output);
-				String result = calcin[0] + "," + calcin[1] + "," + calcin[2]
-						+ "," + calcin3;
-				bw.newLine();
-				bw.append(result);
-
-			}
-			bw.close();
-			br.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File was not found!");
-		} catch (IOException e) {
-			System.out.println("No file found!");
+			double output = calculateWithInput(inpValues.getInput1(),
+					inpValues.getInput2(), inpValues.getChar());
+			
+			wf.writeOutputFile(inpValues , output);			
+			
 		}
+		
+		
 
+	}
+
+	public static double calculateWithInput(double value1, double value2,
+			char operator1) {
+
+		double output = 0;
+		Calculate calculate = new Calculate();
+		switch (operator1) {
+		case '+':
+			output = calculate.add(value1, value2);
+			break;
+		case '-':
+			output = calculate.sub(value1, value2);
+			break;
+		case '*':
+			output = calculate.multiply(value1, value2);
+			break;
+		case '/':
+			output = calculate.divide(value1, value2);
+			break;
+		case '%':
+			output = calculate.percentage(value1, value2);
+			break;
+		default:
+			System.out.println("Please enter the correct operator");
+			break;
+		}
+		return output;
 	}
 
 }
