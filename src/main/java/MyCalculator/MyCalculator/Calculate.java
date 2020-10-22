@@ -39,18 +39,12 @@ public class Calculate {
 	 * @throws Exception
 	 */
 	public double divide(double dividend, double divisor) {
-		double result1 = 0;
-		try {
+		if (divisor == 0) {
+			throw new RuntimeException("Cannot divide by zero");
+		} else {
 			double result = dividend / divisor;
 			return result;
-			}
-			// System.out.println("Please change the divider, cannot divide by zero");
-		 catch (Exception e) {
-			System.out.println(e);
 		}
-		return result1;
-		
-		
 
 	}
 

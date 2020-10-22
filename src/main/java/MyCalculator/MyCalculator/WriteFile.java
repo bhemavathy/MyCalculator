@@ -1,41 +1,34 @@
 package MyCalculator.MyCalculator;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WriteFile {
+	BufferedWriter bw = null;
 
-	public void writeOutputFile(InputReturnValues inpValues, double output) {
-		BufferedWriter bw = null;
+	public WriteFile(BufferedWriter bufferWriter) {
 
 		try {
-			bw = new BufferedWriter(new FileWriter("Inputsout.csv", true));
+			this.bw = bufferWriter;
+			 String heading = "input1,operator,input2,=,result";
+			 bw.append(heading);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-//
-//		String heading = "input1,operator,input2,=,result";
-//		try {
-//			bw.append(heading);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		}		
+			
+	} 
+
+	public void writeOutputFile(InputReturnValues inpValues, double output) {
 
 		String calcin3 = Double.toString(output);
 		double input1 = inpValues.getInput1();
 		double input2 = inpValues.getInput2();
-		char operator = inpValues.getChar();
+		char operator = inpValues.getOperator();
 
-		String result = input1 + "," + operator + "," + input2 + "," + "=" + ","
-				+ calcin3;
+		String result = input1 + "," + operator + "," + input2 + "," + "="
+				+ "," + calcin3;
 
 		try {
 			bw.newLine();
@@ -51,12 +44,5 @@ public class WriteFile {
 			e1.printStackTrace();
 		}
 
-		try {
-
-			bw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
