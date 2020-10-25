@@ -9,16 +9,19 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import org.hamcrest.core.IsEqual;
+
 public class GenerateRandomCalcMain {
 
 	static int plusop, minusop, multipyop, divideop, percop;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws MyCalcException  {
 		// TODO Auto-generated method stub
 		String path = "Random.csv";
 		String outpath = "Randomout.csv";
 
 		WriteRandom wr = new WriteRandom(path);
+		
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Please enter the numbers of values to be generated as an input: ");
@@ -29,8 +32,13 @@ public class GenerateRandomCalcMain {
 
 		List<InputReturnValues> inputslist = rf.readinputfile(path);
 
-		BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(
-				outpath, true));
+		BufferedWriter bufferWriter = null;
+		try {
+			bufferWriter = new BufferedWriter(new FileWriter(
+					outpath));
+		} catch (IOException e1) {
+			throw new MyCalcException("Not able to find the file", e1);
+		}
 		WriteFile wf = new WriteFile(bufferWriter);
 
 		for (InputReturnValues inpValues : inputslist) {
@@ -45,8 +53,7 @@ public class GenerateRandomCalcMain {
 		try {
 			bufferWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new MyCalcException("Not able to close the file", e);
 		}
 
 		// Map<Character,Long> map =
@@ -72,9 +79,12 @@ public class GenerateRandomCalcMain {
 
 	public static double calculateWithInput(double value1, double value2,
 			char operator1) {
-
+		
 		double output = 0;
 		Calculate calculate = new Calculate();
+		if (operator1 == 0){
+			throw new NullPointerException();
+		}
 		switch (operator1) {
 		case '+':
 			output = calculate.add(value1, value2);
@@ -98,7 +108,8 @@ public class GenerateRandomCalcMain {
 			break;
 		default:
 			System.out.println("Please enter the correct operator");
-			break;
+			throw new RuntimeException("Operator is invalid");
+			
 		}
 		return output;
 	}
