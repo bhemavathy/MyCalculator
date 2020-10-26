@@ -1,6 +1,9 @@
 package MyCalculator.MyCalculator;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,78 +16,73 @@ import org.hamcrest.core.IsEqual;
 
 public class GenerateRandomCalcMain {
 
-	static int plusop, minusop, multipyop, divideop, percop;
+	public int plusop, minusop, multipyop, divideop, percop;
 
-	public static void main(String[] args) throws MyCalcException  {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws MyCalcException, IOException {
+
 		String path = "Random.csv";
 		String outpath = "Randomout.csv";
 
 		WriteRandom wr = new WriteRandom(path);
-		
-		
+
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Please enter the numbers of values to be generated as an input: ");
+		System.out
+				.print("Please enter the numbers of values to be generated as an input: ");
 		int noOfValue = sc.nextInt();
 		wr.write(noOfValue);
-				
-		ReadFile rf = new ReadFile();
 
+		BufferedReader bufferReader = null;
+
+		bufferReader = new BufferedReader(new FileReader(path));
+
+		ReadFile rf = new ReadFile(bufferReader);
 		List<InputReturnValues> inputslist = rf.readinputfile(path);
 
 		BufferedWriter bufferWriter = null;
-		try {
-			bufferWriter = new BufferedWriter(new FileWriter(
-					outpath));
-		} catch (IOException e1) {
-			throw new MyCalcException("Not able to find the file", e1);
-		}
+
+		bufferWriter = new BufferedWriter(new FileWriter(outpath));
+
 		WriteFile wf = new WriteFile(bufferWriter);
+		GenerateRandomCalcMain grc = new GenerateRandomCalcMain();
 
 		for (InputReturnValues inpValues : inputslist) {
 
-			double output = calculateWithInput(inpValues.getInput1(),
+			double output = grc.calculateWithInput(inpValues.getInput1(),
 					inpValues.getInput2(), inpValues.getOperator());
 
 			wf.writeOutputFile(inpValues, output);
 
 		}
 
-		try {
-			bufferWriter.close();
-		} catch (IOException e) {
-			throw new MyCalcException("Not able to close the file", e);
-		}
-
-		// Map<Character,Long> map =
-		// inputslist.stream().collect(Collectors.groupingBy(InputReturnValues::getChar,Collectors.counting()));
+		bufferWriter.close();
 
 		System.out
-				.println(plusop
+				.println(grc.plusop
 						+ " times addition has been implemented in this random generator calculator");
 		System.out
-				.println(minusop
+				.println(grc.minusop
 						+ " times subtratcor has been implemented in this random generator calculator");
 		System.out
-				.println(multipyop
+				.println(grc.multipyop
 						+ " times multiplier has been implemented in this random generator calculator");
 		System.out
-				.println(divideop
+				.println(grc.divideop
 						+ " times division has been implemented in this random generator calculator");
 		System.out
-				.println(percop
+				.println(grc.percop
 						+ " times percentage has been implemented in this random generator calculator");
 
 	}
 
-	public static double calculateWithInput(double value1, double value2,
+	public double calculateWithInput(double value1, double value2,
 			char operator1) {
-		
+
 		double output = 0;
 		Calculate calculate = new Calculate();
-		if (operator1 == 0){
+		if (operator1 == 0) {
 			throw new NullPointerException();
 		}
+
 		switch (operator1) {
 		case '+':
 			output = calculate.add(value1, value2);
@@ -109,7 +107,7 @@ public class GenerateRandomCalcMain {
 		default:
 			System.out.println("Please enter the correct operator");
 			throw new RuntimeException("Operator is invalid");
-			
+
 		}
 		return output;
 	}

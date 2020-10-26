@@ -7,7 +7,12 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	CalculateTest.class,
-	CalculateTestSanity.class
+	GenerateRandomCalcMainTest.class,
+	InputReturnValuesTest.class,
+	ParameterTest.class,
+	ReadFileTest.class,
+	WriteFileTest.class,
+	WriteRandomTest.class
 })
 
 public class CalculateSuite {

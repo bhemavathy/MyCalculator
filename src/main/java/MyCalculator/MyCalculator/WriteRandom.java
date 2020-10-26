@@ -9,20 +9,21 @@ import java.util.Scanner;
 public class WriteRandom {
 
 	static BufferedWriter bw = null;
-	long starttime = System.nanoTime();
+	long starttime;
 
 	public WriteRandom(String path) throws MyCalcException {
 
 		try {
 			bw = new BufferedWriter(new FileWriter(path));
 		} catch (IOException e) {
-			throw new MyCalcException("couldn't perform write operation", e);
+			throw new CalcIOException("couldn't perform write operation", e);
 		}
 		String heading = "input1,operator,input2";
+		starttime = System.currentTimeMillis();
 		try {
 			bw.append(heading);
 		} catch (IOException e) {
-			throw new MyCalcException("couldn't write heading", e);
+			throw new CalcIOException("couldn't write heading", e);
 		}
 
 	}
@@ -42,28 +43,26 @@ public class WriteRandom {
 			try {
 				bw.newLine();
 			} catch (IOException e) {
-				throw new MyCalcException("couldn't add new line", e);
+				throw new CalcIOException("couldn't add new line", e);
 			}
 
 			try {
 				bw.append(inputs);
 			} catch (IOException e) {
-				throw new MyCalcException("couldn't write inputs", e);
+				throw new CalcIOException("couldn't write inputs", e);
 			}
 
 		}
-
+		long endtime = System.currentTimeMillis();
 		try {
 			bw.close();
 		} catch (IOException e) {
-			throw new MyCalcException("couldn't close the file", e);
+			throw new CalcIOException("couldn't close the file", e);
 		}
 
-		long endtime = System.nanoTime();
-
 		long duration = endtime - starttime;
-		System.out.println("time taken to write" +noOfValues + "random inputs into file:"
-				+ duration + " ns");
+		System.out.println("time taken to write" + noOfValues
+				+ "random inputs into file:" + duration + " ms");
 	}
 
 }
