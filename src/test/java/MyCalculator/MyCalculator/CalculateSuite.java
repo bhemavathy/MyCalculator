@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	CalculateTest.class,
-	GenerateRandomCalcMainTest.class,
+	CalculateWithInputTest.class,
 	InputReturnValuesTest.class,
 	ParameterTest.class,
 	ReadFileTest.class,

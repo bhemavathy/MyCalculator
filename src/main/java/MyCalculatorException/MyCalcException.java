@@ -1,4 +1,4 @@
-package MyCalculator.MyCalculator;
+package MyCalculatorException;
 
 public class MyCalcException extends Exception {
 

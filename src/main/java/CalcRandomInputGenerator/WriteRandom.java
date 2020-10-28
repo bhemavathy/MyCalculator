@@ -1,4 +1,4 @@
-package MyCalculator.MyCalculator;
+package CalcRandomInputGenerator;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+import MyCalculatorException.CalcIOException;
+import MyCalculatorException.MyCalcException;
+
 public class WriteRandom {
 
 	static BufferedWriter bw = null;
 	long starttime;
-
+	//static String path = "Random.csv";
+	
 	public WriteRandom(String path) throws MyCalcException {
 
 		try {
@@ -27,6 +31,19 @@ public class WriteRandom {
 		}
 
 	}
+	
+	public static void main(String[] args) throws MyCalcException{
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Please enter the numbers of values to be generated as an input: ");
+	  int noOfValue = sc.nextInt();	
+	  
+	  WriteRandom wr = new WriteRandom("Random.csv");
+	  wr.write(noOfValue);  
+	  
+	  
+	}
+
+	
 
 	public void write(int noOfValues) throws MyCalcException {
 
@@ -39,6 +56,7 @@ public class WriteRandom {
 			int operator = (rg.nextInt(op.length));
 
 			String inputs = input1 + "," + op[operator] + "," + input2;
+			System.out.println(inputs);
 
 			try {
 				bw.newLine();
@@ -66,3 +84,4 @@ public class WriteRandom {
 	}
 
 }
+

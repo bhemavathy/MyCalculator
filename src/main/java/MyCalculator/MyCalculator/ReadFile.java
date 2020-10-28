@@ -9,25 +9,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import MyCalculatorException.CalcFileNotFoundException;
+import MyCalculatorException.CalcIOException;
+import MyCalculatorException.MyCalcException;
+
 public class ReadFile {
-
-	BufferedReader br = null;
-
-	public ReadFile(BufferedReader bufferReader) {
-
-		this.br = bufferReader;
-
-	}
 
 	public List<InputReturnValues> readinputfile(String path)
 			throws MyCalcException {
-
+		BufferedReader br = null;
 		String line = "";
 
-		long starttime = System.currentTimeMillis();
+		
+		try {
+			br = new BufferedReader(new FileReader(path));
+		} catch (FileNotFoundException e1) {
+			throw new CalcFileNotFoundException("File is not found", e1);
+
+		}
 
 		List<InputReturnValues> list = new ArrayList<InputReturnValues>();
-
+		long starttime = System.currentTimeMillis();
 		try {
 			line = br.readLine();
 			if (line == null) {
@@ -44,8 +46,6 @@ public class ReadFile {
 				char operator = calcin[1].charAt(0);
 				double input2 = Double.parseDouble(calcin[2]);
 
-				System.out.println("Input1 =" + calcin[0] + ",Operator="
-						+ calcin[1] + ", Input2=" + calcin[2]);
 				InputReturnValues irv = new InputReturnValues();
 				irv.setInput1(input1);
 				irv.setOperator(operator);

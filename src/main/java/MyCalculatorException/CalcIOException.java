@@ -1,4 +1,4 @@
-package MyCalculator.MyCalculator;
+package MyCalculatorException;
 
 import java.io.IOException;
 
