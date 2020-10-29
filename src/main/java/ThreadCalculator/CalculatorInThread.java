@@ -6,7 +6,7 @@ import MyCalculator.MyCalculator.InputReturnValues;
 import MyCalculator.MyCalculator.ReadFile;
 import MyCalculatorException.MyCalcException;
 
-public class CalculatorInThread extends Thread {
+public class CalculatorInThread  {
 
 	public static void main(String[] args) throws MyCalcException,
 			InterruptedException {

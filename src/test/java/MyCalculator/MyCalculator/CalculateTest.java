@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class CalculateTest {
 	@Ignore
-	@Test()
+	@Test
 	public void addTest() {
 		double input1 = 40;
 		double input2 = 50;
@@ -29,7 +29,7 @@ public class CalculateTest {
 
 	}
 	
-	@Test()
+	@Test
 	public void addTwoNegTest() {
 		double input1 = -40;
 		double input2 = -50;

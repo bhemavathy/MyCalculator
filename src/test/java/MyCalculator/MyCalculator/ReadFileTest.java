@@ -32,12 +32,11 @@ public class ReadFileTest {
 	public void readTestToVerifyEachRowSize() throws IOException,
 			MyCalcException {
 
-		// String[] record1 = new String[] { "input1", "operator", "input2" };
 		String[] record2 = new String[] { "2", "*", "3" };
 		String[] record3 = new String[] { "4", "+", "5" };
 
 		List<String[]> expectedrecords = new ArrayList<String[]>();
-		// expectedrecords.add(record1);
+
 		expectedrecords.add(record2);
 		expectedrecords.add(record3);
 
