@@ -28,7 +28,7 @@ public class CalculateTest {
 		Assert.assertEquals(expres, actresult);
 
 	}
-	
+
 	@Test
 	public void addTwoNegTest() {
 		double input1 = -40;
@@ -118,13 +118,5 @@ public class CalculateTest {
 		Assert.assertEquals(expres, actresult);
 
 	}
-
-	
-
-		
-	
-	
-
-
 
 }

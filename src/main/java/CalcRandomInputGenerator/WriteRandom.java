@@ -14,7 +14,7 @@ public class WriteRandom {
 	static BufferedWriter bw = null;
 	long starttime;
 
-	// static String path = "Random.csv";
+	static String path = "Random.csv";
 
 	public WriteRandom(String path) throws MyCalcException {
 
@@ -39,9 +39,18 @@ public class WriteRandom {
 				.println("Please enter the numbers of values to be generated as an input: ");
 		int noOfValue = sc.nextInt();
 
-		WriteRandom wr = new WriteRandom("Random.csv");
+		WriteRandom wr = new WriteRandom(path);
 		wr.write(noOfValue);
+		wr.randClose();
 
+	}
+
+	public void randClose() throws CalcIOException {
+		try {
+			bw.close();
+		} catch (IOException e) {
+			throw new CalcIOException("couldn't close the file", e);
+		}
 	}
 
 	public void write(int noOfValues) throws MyCalcException {
@@ -70,11 +79,6 @@ public class WriteRandom {
 
 		}
 		long endtime = System.currentTimeMillis();
-		try {
-			bw.close();
-		} catch (IOException e) {
-			throw new CalcIOException("couldn't close the file", e);
-		}
 
 		long duration = endtime - starttime;
 		System.out.println("time taken to write" + noOfValues

@@ -1,23 +1,26 @@
 package MyCalculator.MyCalculator;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import MyCalculatorException.CalcFileNotFoundException;
 import MyCalculatorException.CalcIOException;
 import MyCalculatorException.MyCalcException;
 
 public class WriteFile {
 	BufferedWriter bw = null;
 	long starttime;
-	public WriteFile(String outpath) throws MyCalcException {
+	public WriteFile(String outpath) throws MyCalcException, IOException {
 
-		try {
-			bw = new BufferedWriter(new FileWriter(outpath));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+			try {
+				bw = new BufferedWriter(new FileWriter(outpath));
+			} catch (FileNotFoundException e1) {
+				throw new CalcFileNotFoundException("Not able to find path", e1);
+			}
+		
 		String heading = "input1,operator,input2,=,result";
 		 starttime = System.currentTimeMillis();
 		try {
